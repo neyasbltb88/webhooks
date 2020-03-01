@@ -1,0 +1,11 @@
+{
+    "ignore": [
+        "node_modules"
+    ],
+    "env": {
+        "PORT": 3010,
+        "SECRET": ""
+    },
+    "ext": ".js,.json",
+    "watch": "./"
+}
