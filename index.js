@@ -36,7 +36,7 @@ handler.on('*', async event => {
             }
 
             data = data.split('\n').filter(part => part.trim() && !part.trim().startsWith('#'));
-            console.log(data);
+            console.log('Будут выполнены команды: ', data);
 
             shell.exec(data.join(' && '), (code, stdout, stderr) => {
                 if (code !== 0) {
