@@ -4,32 +4,31 @@ const path = require('path');
 const fs = require('fs');
 const shell = require('shelljs');
 
+const { isAccessFile } = require('./utils');
+
 const PORT = process.env.PORT || 3010;
 const SECRET = process.env.SECRET || '';
 
 const handler = createHandler({ path: '/', secret: SECRET });
 
-http.createServer(function(req, res) {
-    handler(req, res, function(err) {
+http.createServer((req, res) => {
+    handler(req, res, err => {
         res.statusCode = 404;
         res.end('no such location');
     });
 }).listen(PORT);
 
-handler.on('error', function(err) {
+handler.on('error', err => {
     console.error('Error:', err.message);
 });
 
-handler.on('*', function(event) {
+handler.on('*', async event => {
     let repoName = event.payload.repository.name;
     let actionType = event.event;
     let pathToAction = path.resolve(__dirname, './repository', repoName, actionType, './action.sh');
 
-    fs.access(pathToAction, fs.F_OK, err => {
-        if (err) {
-            // Не найдено действия для этого события
-            return;
-        }
+    try {
+        await isAccessFile(pathToAction);
 
         fs.readFile(pathToAction, 'utf8', (err, data) => {
             if (err) {
@@ -47,5 +46,7 @@ handler.on('*', function(event) {
                 }
             });
         });
-    });
+    } catch (err) {
+        // Нет доступа к файлу действия
+    }
 });
