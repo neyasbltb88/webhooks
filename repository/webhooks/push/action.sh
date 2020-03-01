@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd /var/www/node/webhooks
-git pull
+git pull --force
