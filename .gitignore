@@ -2,5 +2,5 @@ node_modules
 *.code-workspace
 nodemon.json
 
-repository
-!repository/webhooks
+repository/**/*.*
+!repository/webhooks/*.*
