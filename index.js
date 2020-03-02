@@ -25,7 +25,7 @@ handler.on('error', err => {
 handler.on('*', async event => {
     let repoName = event.payload.repository.name;
     let actionType = event.event;
-    let pathToAction = path.resolve(__dirname, './repository', repoName, actionType, './action.sh');
+    let pathToAction = path.resolve(__dirname, 'repository', repoName, `${actionType}.sh`);
 
     try {
         await isAccessFile(pathToAction);
