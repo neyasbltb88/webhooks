@@ -22,8 +22,6 @@ handler.on('error', err => {
     console.error('Error:', err.message);
 });
 
-//
-
 handler.on('*', async event => {
     let repoName = event.payload.repository.name;
     let actionType = event.event;
