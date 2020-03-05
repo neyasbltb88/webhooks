@@ -38,7 +38,9 @@ handler.on('*', async event => {
             if (actionType === 'push') {
                 let commits = event.payload.commits.map(({ message }) => message);
                 console.log(
-                    `Новы${commits.length > 1 ? 'е' : 'й'} коммит${commits.length > 1 ? 'ы' : ''} в репозиторий `,
+                    `Новы${commits.length > 1 ? 'е' : 'й'} коммит${
+                        commits.length > 1 ? 'ы' : ''
+                    } в репозиторий "${repoName}"`,
                     commits
                 );
             }
