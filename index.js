@@ -35,6 +35,14 @@ handler.on('*', async event => {
                 console.log('Ошибка чтения файла: ', pathToAction);
             }
 
+            if (actionType === 'push') {
+                let commits = event.payload.commits.nap(({ message }) => message);
+                console.log(
+                    `Новы${commits.length > 1 ? 'е' : 'й'} коммит${commits.length > 1 ? 'ы' : ''} в репозиторий `,
+                    commits
+                );
+            }
+
             data = data.split('\n').filter(part => part.trim() && !part.trim().startsWith('#'));
             console.log('Будут выполнены команды: ', data);
 
